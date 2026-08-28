@@ -1,0 +1,55 @@
+{
+  "id": "current-four-week-plan",
+  "currency": "EUR",
+  "notes": "Scenario prudenziale con 20 ticket, soglie salute già applicate.",
+  "orders": [
+    {
+      "id": "w1-primary",
+      "week": 1,
+      "store": "Primary supermarket",
+      "foodSubtotal": 35,
+      "houseSubtotal": 0,
+      "deliveryFee": 7.5,
+      "serviceFee": 0,
+      "voucherValues": [7, 7, 7, 6, 6],
+      "maxVouchers": 8,
+      "health": { "corePassing": 8, "coreTotal": 8, "flexPassing": 3, "flexTotal": 3, "unknownFood": 0 }
+    },
+    {
+      "id": "w2-local",
+      "week": 2,
+      "store": "Local delivery store",
+      "foodSubtotal": 32.69,
+      "houseSubtotal": 6.98,
+      "deliveryFee": 2.49,
+      "serviceFee": 0,
+      "voucherValues": [7, 7, 6, 6, 6],
+      "maxVouchers": 8,
+      "health": { "corePassing": 7, "coreTotal": 7, "flexPassing": 6, "flexTotal": 6, "unknownFood": 0 }
+    },
+    {
+      "id": "w3-primary",
+      "week": 3,
+      "store": "Primary supermarket",
+      "foodSubtotal": 35.19,
+      "houseSubtotal": 0,
+      "deliveryFee": 7.5,
+      "serviceFee": 0,
+      "voucherValues": [7, 7, 7, 6, 6],
+      "maxVouchers": 8,
+      "health": { "corePassing": 9, "coreTotal": 9, "flexPassing": 1, "flexTotal": 1, "unknownFood": 0 }
+    },
+    {
+      "id": "w4-local",
+      "week": 4,
+      "store": "Local delivery store",
+      "foodSubtotal": 32.44,
+      "houseSubtotal": 6.98,
+      "deliveryFee": 2.49,
+      "serviceFee": 0,
+      "voucherValues": [7, 7, 6, 6, 6],
+      "maxVouchers": 8,
+      "health": { "corePassing": 7, "coreTotal": 7, "flexPassing": 8, "flexTotal": 8, "unknownFood": 0 }
+    }
+  ]
+}

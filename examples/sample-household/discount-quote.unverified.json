@@ -1,0 +1,25 @@
+{
+  "store": "Discount via delivery marketplace",
+  "capturedAt": null,
+  "priceBasis": "unknown",
+  "comparableNeedShare": 0,
+  "replacesOrderIds": ["w1-primary", "w2-local"],
+  "baselineEquivalentCost": 84.66,
+  "order": {
+    "foodSubtotal": 80,
+    "houseSubtotal": 0,
+    "deliveryFee": 2.99,
+    "serviceFee": 0,
+    "minimumFoodSubtotal": 80,
+    "maxVouchers": 8,
+    "voucherValues": [7, 7, 7, 7, 6, 6, 6, 6]
+  },
+  "health": {
+    "corePassing": 0,
+    "coreTotal": 0,
+    "flexPassing": 0,
+    "flexTotal": 0,
+    "unknownFood": 1
+  },
+  "note": "Segnaposto deliberatamente non ammissibile: sostituire con un preventivo live, non con prezzi ipotizzati."
+}

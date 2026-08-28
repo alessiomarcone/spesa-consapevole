@@ -1,0 +1,43 @@
+{
+  "id": "sample-household",
+  "location": {
+    "country": "IT",
+    "deliveryArea": "sample-area"
+  },
+  "cycleWeeks": 4,
+  "budget": {
+    "cashPerWeek": 10,
+    "cashPerCycle": 40,
+    "rolling": true
+  },
+  "vouchers": {
+    "provider": "electronic-meal-vouchers",
+    "values": [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6]
+  },
+  "health": {
+    "enabled": true,
+    "provider": "manual-or-open",
+    "thresholds": {
+      "core": 71,
+      "flex": 50
+    },
+    "unknownCore": "block"
+  },
+  "priorities": {
+    "mode": "cost-first",
+    "weightsForNearTies": {
+      "cost": 0.75,
+      "health": 0.15,
+      "convenience": 0.1
+    },
+    "order": ["hard-constraints", "economic-cost", "cash-outlay", "health-surplus", "convenience"]
+  },
+  "discountPolicy": {
+    "minimumComparableShare": 0.7,
+    "minimumSavingsEuro": 5,
+    "minimumSavingsRate": 0.05,
+    "maxQuoteAgeHours": 24,
+    "unknownMarkup": "block"
+  },
+  "excludedCategories": ["fresh-fruit", "fresh-vegetables"]
+}

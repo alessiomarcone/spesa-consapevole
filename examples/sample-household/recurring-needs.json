@@ -1,0 +1,26 @@
+{
+  "cycleWeeks": 4,
+  "notes": "Lista semantica iniziale: quantità e frequenze si possono correggere senza legare il bisogno a una marca.",
+  "needs": [
+    { "id": "milk", "label": "Latte parzialmente scremato", "quantityPerCycle": 8, "unit": "1 L", "frequency": "twice-weekly", "role": "core", "maxUnitPrice": 1.25 },
+    { "id": "plain-yogurt", "label": "Yogurt bianco magro", "quantityPerCycle": 4, "unit": "500 g", "frequency": "weekly", "role": "core", "maxUnitPrice": 0.89 },
+    { "id": "eggs", "label": "Uova", "quantityPerCycle": 4, "unit": "6 uova", "frequency": "weekly", "role": "core", "maxUnitPrice": 1.69 },
+    { "id": "fresh-chicken", "label": "Petto di pollo da porzionare", "quantityPerCycle": 3, "unit": "350 g", "frequency": "monthly-stock", "role": "core", "maxUnitPrice": 5.95 },
+    { "id": "ready-protein", "label": "Proteina pronta per pasti veloci", "quantityPerCycle": 2, "unit": "circa 200 g", "frequency": "fortnightly", "role": "core", "maxUnitPrice": 3.19, "preferences": [] },
+    { "id": "frozen-fish", "label": "Pesce surgelato al naturale", "quantityPerCycle": 2, "unit": "circa 300 g", "frequency": "fortnightly", "role": "core", "maxUnitPrice": 5.49 },
+    { "id": "natural-tuna", "label": "Tonno al naturale", "quantityPerCycle": 2, "unit": "3 × 80 g", "frequency": "fortnightly", "role": "core", "maxUnitPrice": 2.59 },
+    { "id": "dry-pasta", "label": "Pasta secca", "quantityPerCycle": 5, "unit": "500 g", "frequency": "monthly-stock", "role": "core", "maxUnitPrice": 1.65 },
+    { "id": "couscous", "label": "Cous cous", "quantityPerCycle": 1, "unit": "500 g", "frequency": "monthly", "role": "core", "maxUnitPrice": 2.69 },
+    { "id": "basmati", "label": "Riso basmati", "quantityPerCycle": 1, "unit": "1 kg", "frequency": "monthly", "role": "core", "maxUnitPrice": 2.99 },
+    { "id": "legumes", "label": "Ceci o cannellini", "quantityPerCycle": 10, "unit": "400 g", "frequency": "monthly-stock", "role": "core", "maxUnitPrice": 0.49 },
+    { "id": "granola-or-oats", "label": "Granola o fiocchi d'avena", "quantityPerCycle": 4, "unit": "320 g", "frequency": "weekly", "role": "core", "maxUnitPrice": 3.05 },
+    { "id": "bread", "label": "Pane integrale confezionato", "quantityPerCycle": 2, "unit": "confezione", "frequency": "fortnightly", "role": "core", "maxUnitPrice": 1.55 },
+    { "id": "flatbread", "label": "Piadine integrali", "quantityPerCycle": 2, "unit": "3 pezzi", "frequency": "fortnightly", "role": "flex", "maxUnitPrice": 1.89 },
+    { "id": "mozzarella", "label": "Mozzarella", "quantityPerCycle": 8, "unit": "100 g", "frequency": "twice-weekly", "role": "flex", "maxUnitPrice": 0.8 },
+    { "id": "tomato-passata", "label": "Passata semplice", "quantityPerCycle": 3, "unit": "700 g", "frequency": "monthly-stock", "role": "core", "maxUnitPrice": 1.99 },
+    { "id": "jam", "label": "Confettura di mirtilli", "quantityPerCycle": 2, "unit": "330 g", "frequency": "fortnightly", "role": "flex", "maxUnitPrice": 4.29 },
+    { "id": "coffee", "label": "Caffè", "quantityPerCycle": 2, "unit": "confezione", "frequency": "fortnightly", "role": "unscored", "maxUnitPrice": 3.55 },
+    { "id": "toilet-paper", "label": "Carta igienica", "quantityPerCycle": 2, "unit": "4 rotoli", "frequency": "fortnightly", "role": "house", "maxUnitPrice": 3.99 },
+    { "id": "kitchen-paper", "label": "Carta da cucina", "quantityPerCycle": 2, "unit": "2 rotoli", "frequency": "fortnightly", "role": "house", "maxUnitPrice": 2.99 }
+  ]
+}

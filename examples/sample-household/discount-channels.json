@@ -1,0 +1,41 @@
+[
+  {
+    "id": "discount-delivery-marketplace",
+    "name": "Discount via delivery marketplace",
+    "minimumSubtotal": 80,
+    "deliveryFeeFrom": 2.99,
+    "serviceFeeFrom": 0,
+    "maxVouchers": 8,
+    "coverageStatus": "verified",
+    "paymentStatus": "verified",
+    "priceBasis": "unknown",
+    "candidateReplacementOrderIds": ["w1-primary", "w2-local"],
+    "note": "Il marketplace non garantisce la parità col punto vendita: serve un preventivo live."
+  },
+  {
+    "id": "second-discount-marketplace",
+    "name": "Second discount via marketplace",
+    "minimumSubtotal": 80,
+    "deliveryFeeFrom": 2.99,
+    "serviceFeeFrom": 0,
+    "maxVouchers": 8,
+    "coverageStatus": "not-checked-for-postcode",
+    "paymentStatus": "verified",
+    "priceBasis": "unknown",
+    "candidateReplacementOrderIds": ["w1-primary", "w2-local"],
+    "note": "Area di consegna, catalogo e prezzi devono essere verificati nello stesso giorno."
+  },
+  {
+    "id": "discount-click-and-collect",
+    "name": "Discount click-and-collect",
+    "minimumSubtotal": 0,
+    "deliveryFeeFrom": 0,
+    "serviceFeeFrom": 0,
+    "maxVouchers": 0,
+    "coverageStatus": "not-checked-for-postcode",
+    "paymentStatus": "unknown",
+    "priceBasis": "same_as_store_verified",
+    "candidateReplacementOrderIds": ["w1-primary", "w2-local"],
+    "note": "Esempio di canale a prezzo negozio: copertura e buoni pasto restano da verificare."
+  }
+]
