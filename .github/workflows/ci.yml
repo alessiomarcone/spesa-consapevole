@@ -19,3 +19,4 @@ jobs:
       - run: npm test
       - run: npm run plan
       - run: npm run channels
+      - run: npm run store:demo

@@ -29,6 +29,7 @@ npm test
 npm run plan
 npm run channels
 npm run needs
+npm run store:demo
 ```
 
 Machine-readable output for agents and applications:
@@ -47,6 +48,13 @@ node src/cli.js plan \
 
 The bundled quote is deliberately incomplete and must be rejected. It documents
 the safe default for missing prices, stale data and unknown product quality.
+
+The adapter demo stops before changing even a mock cart. Explicitly approve the
+exact evaluated proposal to create an in-memory draft:
+
+```bash
+npm run store:demo -- --approve
+```
 
 ## Generic household model
 
@@ -92,10 +100,17 @@ An LLM may help interpret a rough list, suggest equivalences and explain a plan.
 It cannot invent prices, quality scores or payment support. Checkout is a
 separate adapter and remains human-approved.
 
+Store adapters expose only typed capabilities: search, quote, order history and
+draft-cart creation. They do not expose arbitrary retailer APIs or checkout.
+Every cart proposal is bound to the evaluated quote; changing price, quantity or
+items invalidates its approval.
+
 ## Project structure
 
 ```text
 src/                         engine and CLI
+src/contracts/               agent-safe store and memory interfaces
+src/adapters/                retailer adapter implementations
 examples/sample-household/   fictional configuration and fixtures
 docs/                        architecture and decision records
 test/                        economic and safety tests
@@ -131,3 +146,11 @@ recurring product until a barcode, label or trusted source is available.
 
 Contributions are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md),
 [the architecture](docs/architecture.md) and [data notices](DATA-LICENSES.md).
+
+## Inspiration
+
+The agent interaction, persistent-preference and proactive-shopping patterns
+were inspired by Elia Secchi's Apache-2.0 project
+[`eliasecchig/grocery-agent`](https://github.com/eliasecchig/grocery-agent).
+No upstream source code is currently vendored in this repository. See the
+[collaboration proposal](docs/collaboration-proposal.md).

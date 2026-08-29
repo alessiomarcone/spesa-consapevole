@@ -24,6 +24,7 @@
     "plan": "node src/cli.js plan",
     "channels": "node src/cli.js channels",
     "needs": "node src/cli.js needs",
+    "store:demo": "node src/cli.js store-demo",
     "test": "node --test"
   }
 }
