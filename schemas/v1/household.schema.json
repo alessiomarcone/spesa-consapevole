@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/alessiomarcone/spesa-consapevole/main/schemas/v1/household.schema.json",
+  "title": "Spesa Consapevole household profile v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "id", "location", "cycleWeeks", "budget", "vouchers", "health", "discountPolicy", "excludedCategories"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "id": { "$ref": "#/$defs/id" },
+    "location": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["country", "deliveryArea"],
+      "properties": {
+        "country": { "type": "string", "pattern": "^[A-Z]{2}$" },
+        "deliveryArea": { "type": "string", "minLength": 1, "maxLength": 100 }
+      }
+    },
+    "cycleWeeks": { "type": "integer", "minimum": 1, "maximum": 12 },
+    "budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cashPerWeek", "cashPerCycle", "rolling"],
+      "properties": {
+        "cashPerWeek": { "$ref": "#/$defs/money" },
+        "cashPerCycle": { "$ref": "#/$defs/money" },
+        "rolling": { "type": "boolean" }
+      }
+    },
+    "vouchers": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider", "values"],
+      "properties": {
+        "provider": { "type": ["string", "null"], "maxLength": 100 },
+        "values": {
+          "type": "array",
+          "maxItems": 100,
+          "items": { "type": "number", "exclusiveMinimum": 0, "multipleOf": 0.01 }
+        }
+      }
+    },
+    "health": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["enabled", "provider", "thresholds", "unknownCore"],
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "provider": { "type": ["string", "null"], "maxLength": 100 },
+        "thresholds": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["core", "flex"],
+          "properties": {
+            "core": { "$ref": "#/$defs/score" },
+            "flex": { "$ref": "#/$defs/score" }
+          }
+        },
+        "unknownCore": { "enum": ["block", "allow"] }
+      }
+    },
+    "priorities": { "type": "object" },
+    "discountPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["minimumComparableShare", "minimumSavingsEuro", "minimumSavingsRate", "maxQuoteAgeHours", "unknownMarkup"],
+      "properties": {
+        "minimumComparableShare": { "type": "number", "minimum": 0, "maximum": 1 },
+        "minimumSavingsEuro": { "$ref": "#/$defs/money" },
+        "minimumSavingsRate": { "type": "number", "minimum": 0, "maximum": 1 },
+        "maxQuoteAgeHours": { "type": "number", "exclusiveMinimum": 0 },
+        "unknownMarkup": { "enum": ["block", "allow"] }
+      }
+    },
+    "excludedCategories": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/id" }
+    }
+  },
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$", "maxLength": 80 },
+    "money": { "type": "number", "minimum": 0, "multipleOf": 0.01 },
+    "score": { "type": "number", "minimum": 0, "maximum": 100 }
+  }
+}

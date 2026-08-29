@@ -43,6 +43,10 @@ npm run store:demo
 npm run store:demo -- --approve
 ```
 
+It also publishes versioned JSON schemas for household profiles, recurring
+needs, normalized catalogues, store quotes, decisions and generated plans. A
+provider can therefore integrate without importing the JavaScript engine.
+
 ## What each project contributes
 
 | grocery-agent | Spesa Consapevole |

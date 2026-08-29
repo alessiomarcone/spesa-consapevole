@@ -66,6 +66,31 @@ aggiornamenti includono una versione attesa, così due conversazioni simultanee
 non possono sovrascriversi silenziosamente. File locale, database e documenti
 cloud possono implementare lo stesso contratto.
 
+## Ottimizzatore v1
+
+L'input dell'ottimizzatore è un catalogo già normalizzato e confrontabile, non
+una pagina web o una risposta libera del modello. Per ogni settimana il motore:
+
+1. distribuisce le quantità secondo la frequenza dichiarata;
+2. rimuove le categorie escluse dal profilo;
+3. ammette solo offerte con stessa unità, disponibilità, prezzo massimo e soglia
+   salute verificati;
+4. confronta combinazioni di negozi includendo consegna, commissioni e minimi;
+5. assegna i tagli di buono disponibili senza superare gli alimenti eleggibili;
+6. sceglie prima il minor costo economico e poi la minore quota carta.
+
+I cataloghi `fixture` generano sempre una simulazione. Per i cataloghi `live` il
+motore blocca dati futuri, scaduti o più vecchi della politica configurata. La
+versione iniziale limita il numero di negozi e candidati per mantenere il calcolo
+locale e prevedibile; non effettua scraping né pretende di trovare l'ottimo su
+cataloghi arbitrariamente grandi.
+
+## Contratti v1
+
+Gli schemi in `schemas/v1/` sono il confine pubblico fra onboarding, agente,
+provider e motore. Un cambio incompatibile richiede una nuova versione dello
+schema; aggiungere campi silenziosamente a un documento v1 non è consentito.
+
 ## Dati e privacy
 
 - configurazioni personali in `data/private/`, mai versionate;
@@ -77,5 +102,6 @@ cloud possono implementare lo stesso contratto.
 
 ## Checkout
 
-La versione iniziale si ferma all'anteprima. Compilazione del carrello e acquisto
-sono adapter separati; il pagamento richiede sempre un'approvazione esplicita.
+La versione iniziale si ferma all'anteprima o, per adapter autorizzati, a una
+bozza reversibile. L'acquisto e il pagamento non fanno parte del contratto e
+richiedono sempre un'azione esplicita dell'utente nel canale del retailer.

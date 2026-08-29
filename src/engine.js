@@ -23,6 +23,7 @@ export function analyzePlan(household, plan) {
   const issues = [];
   const orders = plan.orders.map((order) => {
     const food = roundMoney(order.foodSubtotal);
+    const voucherEligibleFood = roundMoney(order.voucherEligibleFoodSubtotal ?? food);
     const house = roundMoney(order.houseSubtotal ?? 0);
     const fees = roundMoney((order.deliveryFee ?? 0) + (order.serviceFee ?? 0));
     const economicCost = sum([food, house, fees]);
@@ -33,7 +34,7 @@ export function analyzePlan(household, plan) {
     if ((order.voucherValues ?? []).length > maxVouchers) {
       issues.push(`${order.id}: più di ${maxVouchers} ticket.`);
     }
-    if (voucherValue > food) {
+    if (voucherValue > voucherEligibleFood) {
       issues.push(`${order.id}: i ticket superano gli alimentari eleggibili.`);
     }
     if (cash < 0) {
@@ -56,6 +57,7 @@ export function analyzePlan(household, plan) {
     return {
       ...order,
       foodSubtotal: food,
+      voucherEligibleFoodSubtotal: voucherEligibleFood,
       houseSubtotal: house,
       fees,
       economicCost,
@@ -75,6 +77,17 @@ export function analyzePlan(household, plan) {
     vouchers: sum(orders.map((order) => order.voucherValue)),
     cash: sum(orders.map((order) => order.cash)),
   };
+
+  if (!household.budget.rolling) {
+    for (let week = 1; week <= household.cycleWeeks; week += 1) {
+      const weeklyCash = sum(orders.filter((order) => order.week === week).map((order) => order.cash));
+      if (weeklyCash > household.budget.cashPerWeek) {
+        issues.push(
+          `Settimana ${week}: carta €${weeklyCash.toFixed(2)} oltre il budget di €${household.budget.cashPerWeek.toFixed(2)}.`,
+        );
+      }
+    }
+  }
 
   if (totals.cash > household.budget.cashPerCycle) {
     issues.push(
@@ -148,6 +161,7 @@ export function evaluateDiscountQuote(household, planAnalysis, quote, now = new 
 
   const order = quote.order;
   const food = roundMoney(order.foodSubtotal ?? 0);
+  const voucherEligibleFood = roundMoney(order.voucherEligibleFoodSubtotal ?? food);
   const house = roundMoney(order.houseSubtotal ?? 0);
   const fees = roundMoney((order.deliveryFee ?? 0) + (order.serviceFee ?? 0));
   const economicCost = sum([food, house, fees]);
@@ -158,7 +172,7 @@ export function evaluateDiscountQuote(household, planAnalysis, quote, now = new 
   if ((order.voucherValues ?? []).length > (order.maxVouchers ?? 8)) {
     reasons.push("TOO_MANY_VOUCHERS");
   }
-  if (voucherValue > food) reasons.push("VOUCHERS_EXCEED_ELIGIBLE_FOOD");
+  if (voucherValue > voucherEligibleFood) reasons.push("VOUCHERS_EXCEED_ELIGIBLE_FOOD");
 
   if (household.health.enabled) {
     const health = quote.health ?? {};
@@ -190,6 +204,7 @@ export function evaluateDiscountQuote(household, planAnalysis, quote, now = new 
   }
 
   return {
+    schemaVersion: 1,
     quoteId: quote.quoteId ?? null,
     accepted: reasons.length === 0,
     reasons,

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/alessiomarcone/spesa-consapevole/main/schemas/v1/needs.schema.json",
+  "title": "Spesa Consapevole recurring needs v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "cycleWeeks", "needs"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "cycleWeeks": { "type": "integer", "minimum": 1, "maximum": 12 },
+    "notes": { "type": "string", "maxLength": 2000 },
+    "needs": {
+      "type": "array",
+      "maxItems": 500,
+      "items": { "$ref": "#/$defs/need" }
+    }
+  },
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$", "maxLength": 80 },
+    "need": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "quantityPerCycle", "unit", "frequency", "role", "maxUnitPrice"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "label": { "type": "string", "minLength": 1, "maxLength": 160 },
+        "quantityPerCycle": { "type": "integer", "minimum": 1, "maximum": 1000 },
+        "unit": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "frequency": { "enum": ["twice-weekly", "weekly", "fortnightly", "monthly", "monthly-stock"] },
+        "role": { "enum": ["core", "flex", "unscored", "house"] },
+        "category": { "$ref": "#/$defs/id" },
+        "maxUnitPrice": { "type": "number", "minimum": 0, "multipleOf": 0.01 },
+        "preferences": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "maxLength": 100 }
+        }
+      }
+    }
+  }
+}

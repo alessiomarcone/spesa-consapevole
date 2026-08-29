@@ -21,6 +21,40 @@ test("il piano corrente rispetta €40 di carta", async () => {
   assert.equal(result.cashMargin, 0.74);
 });
 
+test("un budget settimanale non rolling viene applicato a ogni settimana", async () => {
+  const household = await readJson("household.json");
+  household.budget.rolling = false;
+  const result = analyzePlan(household, await readJson("baseline-plan.json"));
+  assert.equal(result.valid, false);
+  assert.ok(result.issues.some((issue) => issue.startsWith("Settimana 2:")));
+});
+
+test("i ticket non possono coprire alimenti dichiarati non eleggibili", async () => {
+  const household = await readJson("household.json");
+  const result = analyzePlan(household, {
+    schemaVersion: 1,
+    id: "voucher-eligibility-test",
+    currency: "EUR",
+    orders: [
+      {
+        id: "w1-test",
+        week: 1,
+        store: "Test store",
+        foodSubtotal: 10,
+        voucherEligibleFoodSubtotal: 5,
+        houseSubtotal: 0,
+        deliveryFee: 0,
+        serviceFee: 0,
+        voucherValues: [6],
+        maxVouchers: 8,
+        health: { corePassing: 0, coreTotal: 0, flexPassing: 0, flexTotal: 0, unknownFood: 0 },
+      },
+    ],
+  });
+  assert.equal(result.valid, false);
+  assert.ok(result.issues.some((issue) => issue.includes("alimentari eleggibili")));
+});
+
 test("un marketplace discount resta discovery-only se il prezzo online non è verificato", async () => {
   const household = await readJson("household.json");
   const plan = analyzePlan(household, await readJson("baseline-plan.json"));

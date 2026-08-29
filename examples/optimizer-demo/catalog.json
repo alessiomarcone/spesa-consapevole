@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "sourceType": "fixture",
+  "currency": "EUR",
+  "capturedAt": "2026-08-29T10:00:00Z",
+  "expiresAt": "2026-08-29T10:30:00Z",
+  "stores": [
+    {
+      "id": "value-store",
+      "name": "Sample value store",
+      "priceBasis": "same_as_store_verified",
+      "deliveryFee": 0,
+      "serviceFee": 0,
+      "minimumFoodSubtotal": 0,
+      "acceptsVouchers": true,
+      "maxVouchers": 8,
+      "offers": [
+        { "needId": "milk", "productId": "value-milk", "name": "Value milk", "unit": "1 L", "unitPrice": 1.1, "available": true, "voucherEligible": true, "healthScore": 78, "scoreSource": "fixture" },
+        { "needId": "eggs", "productId": "value-eggs", "name": "Value eggs", "unit": "6 pack", "unitPrice": 1.5, "available": true, "voucherEligible": true, "healthScore": 78, "scoreSource": "fixture" },
+        { "needId": "protein", "productId": "value-protein", "name": "Value fresh protein", "unit": "200 g", "unitPrice": 4.5, "available": true, "voucherEligible": true, "healthScore": 90, "scoreSource": "fixture" },
+        { "needId": "pasta", "productId": "value-pasta", "name": "Value dry pasta", "unit": "500 g", "unitPrice": 1.175, "available": true, "voucherEligible": true, "healthScore": 90, "scoreSource": "fixture" }
+      ]
+    },
+    {
+      "id": "convenience-store",
+      "name": "Sample convenience store",
+      "priceBasis": "live_online",
+      "deliveryFee": 2.99,
+      "serviceFee": 0,
+      "minimumFoodSubtotal": 0,
+      "acceptsVouchers": true,
+      "maxVouchers": 8,
+      "offers": [
+        { "needId": "milk", "productId": "convenience-milk", "name": "Convenience milk", "unit": "1 L", "unitPrice": 0.99, "available": true, "voucherEligible": true, "healthScore": 80, "scoreSource": "fixture" },
+        { "needId": "eggs", "productId": "convenience-eggs", "name": "Convenience eggs", "unit": "6 pack", "unitPrice": 1.55, "available": true, "voucherEligible": true, "healthScore": 82, "scoreSource": "fixture" },
+        { "needId": "protein", "productId": "convenience-protein", "name": "Convenience fresh protein", "unit": "200 g", "unitPrice": 4.75, "available": true, "voucherEligible": true, "healthScore": 92, "scoreSource": "fixture" },
+        { "needId": "pasta", "productId": "convenience-pasta", "name": "Convenience dry pasta", "unit": "500 g", "unitPrice": 0.95, "available": true, "voucherEligible": true, "healthScore": 91, "scoreSource": "fixture" }
+      ]
+    }
+  ]
+}

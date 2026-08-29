@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/alessiomarcone/spesa-consapevole/main/schemas/v1/decision.schema.json",
+  "title": "Spesa Consapevole quote decision v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "quoteId", "accepted", "reasons", "store", "baselineEquivalentCost", "economicCost", "savingsEuro", "savingsRate", "voucherValue", "cash", "projectedCycleCash"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "quoteId": { "type": ["string", "null"] },
+    "accepted": { "type": "boolean" },
+    "reasons": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+    "store": { "type": "string", "minLength": 1 },
+    "baselineEquivalentCost": { "type": "number", "minimum": 0 },
+    "economicCost": { "type": "number", "minimum": 0 },
+    "savingsEuro": { "type": "number" },
+    "savingsRate": { "type": "number" },
+    "voucherValue": { "type": "number", "minimum": 0 },
+    "cash": { "type": "number", "minimum": 0 },
+    "projectedCycleCash": { "type": "number", "minimum": 0 }
+  }
+}
