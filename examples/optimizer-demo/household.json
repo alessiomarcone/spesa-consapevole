@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "sample-household",
+  "id": "optimizer-demo-household",
   "location": {
     "country": "IT",
     "deliveryArea": "sample-area"
@@ -12,26 +12,17 @@
     "rolling": true
   },
   "vouchers": {
-    "provider": "electronic-meal-vouchers",
-    "values": [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6]
+    "provider": "sample-vouchers",
+    "values": [7, 7, 7, 7]
   },
   "health": {
     "enabled": true,
-    "provider": "manual-or-open",
+    "provider": "fixture",
     "thresholds": {
       "core": 71,
       "flex": 50
     },
     "unknownCore": "block"
-  },
-  "priorities": {
-    "mode": "cost-first",
-    "weightsForNearTies": {
-      "cost": 0.75,
-      "health": 0.15,
-      "convenience": 0.1
-    },
-    "order": ["hard-constraints", "economic-cost", "cash-outlay", "health-surplus", "convenience"]
   },
   "discountPolicy": {
     "minimumComparableShare": 0.7,

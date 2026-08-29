@@ -11,7 +11,13 @@
     "url": "https://github.com/alessiomarcone/spesa-consapevole/issues"
   },
   "homepage": "https://github.com/alessiomarcone/spesa-consapevole#readme",
-  "keywords": ["grocery", "budget", "meal-vouchers", "cost-optimization", "local-first"],
+  "keywords": [
+    "grocery",
+    "budget",
+    "meal-vouchers",
+    "cost-optimization",
+    "local-first"
+  ],
   "type": "module",
   "license": "AGPL-3.0-only",
   "engines": {
@@ -20,11 +26,31 @@
   "bin": {
     "spesa": "./src/cli.js"
   },
+  "exports": {
+    ".": "./src/engine.js",
+    "./optimizer": "./src/optimizer.js",
+    "./validation": "./src/validation.js",
+    "./contracts/store-adapter": "./src/contracts/store-adapter.js",
+    "./contracts/profile-store": "./src/contracts/profile-store.js"
+  },
+  "files": [
+    "src/",
+    "schemas/",
+    "examples/optimizer-demo/",
+    "README.md",
+    "DATA-LICENSES.md",
+    "THIRD_PARTY_NOTICES.md"
+  ],
   "scripts": {
     "plan": "node src/cli.js plan",
+    "optimize": "node src/cli.js optimize",
+    "profile:init": "node src/cli.js init",
     "channels": "node src/cli.js channels",
     "needs": "node src/cli.js needs",
     "store:demo": "node src/cli.js store-demo",
     "test": "node --test"
+  },
+  "dependencies": {
+    "ajv": "^8.18.0"
   }
 }

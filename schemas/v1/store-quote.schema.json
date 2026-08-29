@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/alessiomarcone/spesa-consapevole/main/schemas/v1/store-quote.schema.json",
+  "title": "Spesa Consapevole store quote v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "id", "adapterId", "storeName", "currency", "priceBasis", "capturedAt", "expiresAt", "lineItems", "totals", "payment", "source"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "id": { "type": "string", "minLength": 1 },
+    "adapterId": { "$ref": "#/$defs/id" },
+    "storeName": { "type": "string", "minLength": 1 },
+    "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+    "priceBasis": { "enum": ["live_online", "same_as_store_verified"] },
+    "capturedAt": { "type": "string", "format": "date-time" },
+    "expiresAt": { "type": "string", "format": "date-time" },
+    "lineItems": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["needId", "productId", "name", "quantity", "unitPrice", "rowTotal", "role", "healthScore", "scoreSource", "voucherEligible"],
+        "properties": {
+          "needId": { "$ref": "#/$defs/id" },
+          "productId": { "$ref": "#/$defs/id" },
+          "name": { "type": "string", "minLength": 1 },
+          "quantity": { "type": "integer", "minimum": 1 },
+          "unitPrice": { "type": "number", "minimum": 0 },
+          "rowTotal": { "type": "number", "minimum": 0 },
+          "role": { "enum": ["core", "flex", "unscored", "house"] },
+          "healthScore": { "type": ["number", "null"], "minimum": 0, "maximum": 100 },
+          "scoreSource": { "type": "string", "minLength": 1 },
+          "voucherEligible": { "type": "boolean" }
+        }
+      }
+    },
+    "totals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["foodSubtotal", "houseSubtotal", "deliveryFee", "serviceFee", "grandTotal"],
+      "properties": {
+        "foodSubtotal": { "$ref": "#/$defs/money" },
+        "houseSubtotal": { "$ref": "#/$defs/money" },
+        "deliveryFee": { "$ref": "#/$defs/money" },
+        "serviceFee": { "$ref": "#/$defs/money" },
+        "grandTotal": { "$ref": "#/$defs/money" }
+      }
+    },
+    "payment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["minimumFoodSubtotal", "maxVouchers", "voucherProvider"],
+      "properties": {
+        "minimumFoodSubtotal": { "$ref": "#/$defs/money" },
+        "maxVouchers": { "type": "integer", "minimum": 0, "maximum": 20 },
+        "voucherProvider": { "type": ["string", "null"] }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "reference"],
+      "properties": {
+        "kind": { "type": "string", "minLength": 1 },
+        "reference": { "type": "string", "minLength": 1 }
+      }
+    }
+  },
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$", "maxLength": 100 },
+    "money": { "type": "number", "minimum": 0, "multipleOf": 0.01 }
+  }
+}

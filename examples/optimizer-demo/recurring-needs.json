@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "cycleWeeks": 4,
+  "notes": "Small fictional input used to exercise the complete optimizer.",
+  "needs": [
+    { "id": "milk", "label": "Basic milk", "quantityPerCycle": 8, "unit": "1 L", "frequency": "twice-weekly", "role": "core", "maxUnitPrice": 1.3 },
+    { "id": "eggs", "label": "Medium eggs", "quantityPerCycle": 4, "unit": "6 pack", "frequency": "weekly", "role": "core", "maxUnitPrice": 1.9 },
+    { "id": "protein", "label": "Fresh protein", "quantityPerCycle": 4, "unit": "200 g", "frequency": "weekly", "role": "core", "maxUnitPrice": 5.2 },
+    { "id": "pasta", "label": "Dry pasta", "quantityPerCycle": 4, "unit": "500 g", "frequency": "monthly-stock", "role": "core", "maxUnitPrice": 1.5 },
+    { "id": "fresh-fruit", "label": "Market fruit", "quantityPerCycle": 4, "unit": "1 kg", "frequency": "weekly", "role": "core", "category": "fresh-fruit", "maxUnitPrice": 3 }
+  ]
+}

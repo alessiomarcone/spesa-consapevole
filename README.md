@@ -22,15 +22,21 @@ on a secondary dimension.
 
 ## Quick start
 
-Node.js 20 or newer is required. There are no runtime dependencies.
+Node.js 20 or newer is required. Runtime input validation uses Ajv.
 
 ```bash
 npm test
 npm run plan
+npm run optimize
 npm run channels
 npm run needs
 npm run store:demo
 ```
+
+`npm run optimize` is the first complete deterministic slice. It schedules
+recurring needs across the cycle, compares compatible products, includes fees,
+allocates the available voucher denominations and prints four detailed lists.
+Its bundled catalogue is explicitly marked as a simulation.
 
 Machine-readable output for agents and applications:
 
@@ -55,6 +61,25 @@ exact evaluated proposal to create an in-memory draft:
 ```bash
 npm run store:demo -- --approve
 ```
+
+## Local onboarding
+
+Create an untracked household profile without storing credentials or a street
+address:
+
+```bash
+npm run profile:init -- \
+  --output data/private/my-household \
+  --cash-week 10 \
+  --voucher-provider electronic-meal-vouchers \
+  --voucher-values 7,7,7,6,6 \
+  --core-threshold 71 \
+  --flex-threshold 50
+```
+
+The command creates `household.json` and an empty `recurring-needs.json`. It
+refuses to overwrite an existing profile unless `--force` is explicitly passed.
+All inputs are checked against the versioned schemas in `schemas/v1/`.
 
 ## Generic household model
 
@@ -105,13 +130,19 @@ draft-cart creation. They do not expose arbitrary retailer APIs or checkout.
 Every cart proposal is bound to the evaluated quote; changing price, quantity or
 items invalidates its approval.
 
+Provider-neutral JSON contracts are available for household profiles, recurring
+needs, comparable catalogues, store quotes, decisions and generated plans.
+
 ## Project structure
 
 ```text
 src/                         engine and CLI
 src/contracts/               agent-safe store and memory interfaces
 src/adapters/                retailer adapter implementations
+src/optimizer.js             deterministic scheduling and basket selection
+schemas/v1/                  versioned interoperability contracts
 examples/sample-household/   fictional configuration and fixtures
+examples/optimizer-demo/     fictional end-to-end optimizer fixture
 docs/                        architecture and decision records
 test/                        economic and safety tests
 ```
@@ -137,7 +168,7 @@ recurring product until a barcode, label or trusted source is available.
 
 ## Roadmap
 
-- schema-backed onboarding for quantity, frequency, budget and scoring policy;
+- interactive editing of recurring quantities and frequencies;
 - Open Food Facts barcode enrichment;
 - read-only retailer quotes with short-lived caches;
 - assisted cart creation with explicit checkout approval;

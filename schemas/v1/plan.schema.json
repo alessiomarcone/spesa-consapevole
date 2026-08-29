@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/alessiomarcone/spesa-consapevole/main/schemas/v1/plan.schema.json",
+  "title": "Spesa Consapevole four-week plan v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "id", "currency", "orders"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "id": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+    "notes": { "type": "string", "maxLength": 2000 },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "simulation": { "type": "boolean" },
+    "orders": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "week", "store", "foodSubtotal", "houseSubtotal", "deliveryFee", "serviceFee", "voucherValues", "maxVouchers", "health"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "week": { "type": "integer", "minimum": 1, "maximum": 12 },
+          "store": { "type": "string", "minLength": 1 },
+          "storeId": { "type": "string", "minLength": 1 },
+          "foodSubtotal": { "type": "number", "minimum": 0 },
+          "voucherEligibleFoodSubtotal": { "type": "number", "minimum": 0 },
+          "houseSubtotal": { "type": "number", "minimum": 0 },
+          "deliveryFee": { "type": "number", "minimum": 0 },
+          "serviceFee": { "type": "number", "minimum": 0 },
+          "voucherValues": { "type": "array", "items": { "type": "number", "exclusiveMinimum": 0 } },
+          "acceptsVouchers": { "type": "boolean" },
+          "maxVouchers": { "type": "integer", "minimum": 0 },
+          "health": { "$ref": "#/$defs/health" },
+          "items": { "type": "array", "items": { "$ref": "#/$defs/item" } }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "health": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["corePassing", "coreTotal", "flexPassing", "flexTotal", "unknownFood"],
+      "properties": {
+        "corePassing": { "type": "integer", "minimum": 0 },
+        "coreTotal": { "type": "integer", "minimum": 0 },
+        "flexPassing": { "type": "integer", "minimum": 0 },
+        "flexTotal": { "type": "integer", "minimum": 0 },
+        "unknownFood": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["needId", "productId", "name", "unit", "quantity", "unitPrice", "rowTotal", "role", "scoreSource", "voucherEligible", "alternatives"],
+      "properties": {
+        "needId": { "type": "string", "minLength": 1 },
+        "productId": { "type": "string", "minLength": 1 },
+        "name": { "type": "string", "minLength": 1 },
+        "unit": { "type": "string", "minLength": 1 },
+        "quantity": { "type": "integer", "minimum": 1 },
+        "unitPrice": { "type": "number", "minimum": 0 },
+        "rowTotal": { "type": "number", "minimum": 0 },
+        "role": { "enum": ["core", "flex", "unscored", "house"] },
+        "healthScore": { "type": ["number", "null"], "minimum": 0, "maximum": 100 },
+        "scoreSource": { "type": "string", "minLength": 1 },
+        "voucherEligible": { "type": "boolean" },
+        "alternatives": { "type": "array", "maxItems": 3, "items": { "$ref": "#/$defs/alternative" } }
+      }
+    },
+    "alternative": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["storeId", "storeName", "productId", "name", "unit", "unitPrice", "scoreSource"],
+      "properties": {
+        "storeId": { "type": "string", "minLength": 1 },
+        "storeName": { "type": "string", "minLength": 1 },
+        "productId": { "type": "string", "minLength": 1 },
+        "name": { "type": "string", "minLength": 1 },
+        "unit": { "type": "string", "minLength": 1 },
+        "unitPrice": { "type": "number", "minimum": 0 },
+        "healthScore": { "type": ["number", "null"], "minimum": 0, "maximum": 100 },
+        "scoreSource": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

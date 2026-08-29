@@ -1,4 +1,5 @@
 {
+  "schemaVersion": 1,
   "id": "current-four-week-plan",
   "currency": "EUR",
   "notes": "Scenario prudenziale con 20 ticket, soglie salute già applicate.",

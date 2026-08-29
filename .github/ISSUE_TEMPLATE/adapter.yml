@@ -1,0 +1,44 @@
+name: Retailer adapter proposal
+description: Propose a read-only retailer or product-data integration.
+title: "adapter: "
+labels: [adapter]
+body:
+  - type: input
+    id: provider
+    attributes:
+      label: Provider
+      description: Retailer, marketplace or product-data provider.
+    validations:
+      required: true
+  - type: dropdown
+    id: access
+    attributes:
+      label: Access method
+      options:
+        - Public documented API
+        - Authorized account API
+        - User-controlled browser session
+        - Unknown
+    validations:
+      required: true
+  - type: textarea
+    id: coverage
+    attributes:
+      label: Coverage and pricing
+      description: Geography, delivery mode, price basis, fees and minimum order.
+    validations:
+      required: true
+  - type: textarea
+    id: payment
+    attributes:
+      label: Payment and vouchers
+      description: Verified payment methods, voucher provider and transaction limits.
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety boundary
+      options:
+        - label: The first contribution will not perform checkout or payment.
+          required: true
+        - label: No credentials, cookies, addresses or personal order history will be committed.
+          required: true

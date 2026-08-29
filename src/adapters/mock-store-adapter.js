@@ -62,6 +62,7 @@ export class MockStoreAdapter extends StoreAdapter {
     const serviceFee = money(this.config.serviceFee ?? 0);
 
     return {
+      schemaVersion: 1,
       id: randomUUID(),
       adapterId: this.metadata.id,
       storeName: this.metadata.name,

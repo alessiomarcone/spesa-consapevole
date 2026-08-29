@@ -28,6 +28,8 @@ Prima di proporre modifiche:
 ```bash
 npm test
 npm run plan
+npm run optimize
 npm run channels
 npm run store:demo
+npm audit
 ```
