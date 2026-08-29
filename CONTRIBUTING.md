@@ -15,6 +15,13 @@ Ogni adapter deve dichiarare:
 
 Non inserire credenziali, indirizzi completi, token, cookie o cronologie personali.
 Un adapter non deve completare un pagamento nei test o nelle pull request.
+Non esporre query o mutation arbitrarie generate dal modello: aggiungere invece
+un metodo tipizzato, validazione degli input e un test del relativo confine.
+
+Se una modifica incorpora codice Apache-2.0 o di altra provenienza, conservare
+copyright e header, aggiungere l'attribuzione e indicare chiaramente i file
+modificati. Le sole idee o interfacce reimplementate indipendentemente vanno
+descritte negli acknowledgements, senza attribuire falsamente il codice.
 
 Prima di proporre modifiche:
 
@@ -22,4 +29,5 @@ Prima di proporre modifiche:
 npm test
 npm run plan
 npm run channels
+npm run store:demo
 ```

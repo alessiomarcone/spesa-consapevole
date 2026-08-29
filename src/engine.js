@@ -190,6 +190,7 @@ export function evaluateDiscountQuote(household, planAnalysis, quote, now = new 
   }
 
   return {
+    quoteId: quote.quoteId ?? null,
     accepted: reasons.length === 0,
     reasons,
     store: quote.store,

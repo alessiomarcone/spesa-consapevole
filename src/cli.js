@@ -9,6 +9,9 @@ import {
   evaluateDiscountQuote,
   formatEuro,
 } from "./engine.js";
+import { MockStoreAdapter } from "./adapters/mock-store-adapter.js";
+import { quoteToDiscountInput } from "./contracts/store-adapter.js";
+import { approveCartProposal, createCartProposal } from "./approval.js";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..");
@@ -100,6 +103,55 @@ async function main() {
       for (const need of data.needs) {
         const quantity = need.frequency === "discovery" ? `target ${need.targetQuantity}` : need.quantityPerCycle;
         console.log(`[ ] ${need.label} · ${quantity} × ${need.unit} · ${need.frequency} · max ${formatEuro(need.maxUnitPrice)}`);
+      }
+    }
+    return;
+  }
+
+  if (command === "store-demo") {
+    const storePath = option(args, "--store", resolve(example, "mock-store.json"));
+    const adapter = new MockStoreAdapter(await readJson(storePath));
+    const now = new Date();
+    const quote = await adapter.createQuote(
+      {
+        items: [
+          { needId: "milk", productId: "milk-basic", quantity: 8, role: "core" },
+          { needId: "eggs", productId: "eggs-basic", quantity: 4, role: "core" },
+          { needId: "protein", productId: "protein-basic", quantity: 3, role: "core" },
+          { needId: "pasta", productId: "pasta-basic", quantity: 4, role: "core" },
+        ],
+      },
+      now,
+    );
+    const evaluationInput = quoteToDiscountInput(
+      quote,
+      {
+        comparableNeedShare: 1,
+        replacesOrderIds: ["w1-primary"],
+        baselineEquivalentCost: 42.5,
+        voucherValues: [7, 7, 7, 6, 6],
+      },
+      household,
+    );
+    const evaluation = evaluateDiscountQuote(household, analysis, evaluationInput, now);
+    const proposal = createCartProposal(quote, evaluation);
+    const output = { adapter: adapter.metadata, quote, evaluation, proposal };
+
+    if (args.includes("--approve")) {
+      const receipt = approveCartProposal(proposal, { actor: "cli-user", now });
+      output.approval = receipt;
+      output.draftCart = await adapter.createDraftCart(proposal, receipt, now);
+    }
+
+    if (args.includes("--json")) console.log(JSON.stringify(output, null, 2));
+    else {
+      console.log(`Store adapter: ${adapter.metadata.name}`);
+      console.log(`Quote: ${formatEuro(quote.totals.grandTotal)} · ${evaluation.accepted ? "ACCEPTED" : "REJECTED"}`);
+      console.log(`Proposal: ${proposal.status} · ${proposal.id.slice(0, 12)}`);
+      if (output.draftCart) {
+        console.log(`Draft cart: ${output.draftCart.id} · checkout ${output.draftCart.checkoutPerformed ? "done" : "not performed"}`);
+      } else {
+        console.log("No cart created. Re-run with --approve to simulate explicit approval.");
       }
     }
     return;

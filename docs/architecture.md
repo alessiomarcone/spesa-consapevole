@@ -39,6 +39,33 @@ L'AI trasforma frasi e liste grezze in bisogni strutturati, propone equivalenze 
 spiega la decisione. Il motore deterministico esegue conti e controlli. Una
 proposta AI non verificata non può aggiornare prezzo, punteggio o checkout.
 
+## Confini degli adapter
+
+L'agente non riceve un endpoint generico del retailer. Ogni adapter espone un
+insieme ristretto di capacità:
+
+```text
+search → quote → valutazione cost-first → proposta → approvazione → draft cart
+```
+
+- `searchProducts`: sola lettura;
+- `createQuote`: produce prezzi, fonte, scadenza, commissioni e prodotti;
+- `getOrderHistory`: sola lettura e opzionale;
+- `createDraftCart`: richiede una proposta accettata e una ricevuta valida;
+- checkout e pagamento non fanno parte del contratto.
+
+La decisione economica è legata all'ID e al totale del preventivo. La ricevuta
+lega poi l'approvazione al digest esatto di prodotti, quantità e totale.
+Non è un sistema di autenticazione: l'applicazione host deve autenticare chi
+approva e proteggere la sessione.
+
+## Memoria
+
+Preferenze e bisogni usano un contratto separato dal provider di storage. Gli
+aggiornamenti includono una versione attesa, così due conversazioni simultanee
+non possono sovrascriversi silenziosamente. File locale, database e documenti
+cloud possono implementare lo stesso contratto.
+
 ## Dati e privacy
 
 - configurazioni personali in `data/private/`, mai versionate;

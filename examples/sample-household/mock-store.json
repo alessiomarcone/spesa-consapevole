@@ -1,0 +1,20 @@
+{
+  "id": "sample-pickup-store",
+  "name": "Sample pickup store",
+  "currency": "EUR",
+  "priceBasis": "same_as_store_verified",
+  "deliveryFee": 0,
+  "serviceFee": 0,
+  "minimumFoodSubtotal": 0,
+  "maxVouchers": 8,
+  "voucherProvider": "sample-vouchers",
+  "quoteTtlMinutes": 30,
+  "sourceReference": "examples/sample-household/mock-store.json",
+  "products": [
+    { "id": "milk-basic", "name": "Basic semi-skimmed milk", "tags": ["milk"], "unitPrice": 1.1, "healthScore": 78, "scoreSource": "fixture", "voucherEligible": true, "available": true },
+    { "id": "eggs-basic", "name": "Basic medium eggs", "tags": ["eggs"], "unitPrice": 1.5, "healthScore": 78, "scoreSource": "fixture", "voucherEligible": true, "available": true },
+    { "id": "protein-basic", "name": "Basic fresh protein", "tags": ["protein"], "unitPrice": 4.5, "healthScore": 90, "scoreSource": "fixture", "voucherEligible": true, "available": true },
+    { "id": "pasta-basic", "name": "Basic dry pasta", "tags": ["pasta"], "unitPrice": 1.175, "healthScore": 90, "scoreSource": "fixture", "voucherEligible": true, "available": true }
+  ],
+  "orderHistory": []
+}
